@@ -1,5 +1,9 @@
 pipeline{
-    agnet any
+    agent any
+
+    triggers {
+        githubPush()
+    }
 
     tools{
         maven 'maven_3_5_0'
