@@ -30,7 +30,7 @@ pipeline{
             steps {
                 script {
                     echo "*************** Checking out the latest code *******************"
-                    checkout([$class: 'GitSCM', userRemoteConfigs: [[url: env.GIT_REPO_URL]], branches: [[name: '*/main']]])
+                    checkout([$class: 'GitSCM', userRemoteConfigs: [[url: env.GIT_REPO_URL]], branches: [[name: '*/master']]])
                     sh "git fetch --tags"
                     def latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
                     echo "Latest tag: ${latestTag}"
