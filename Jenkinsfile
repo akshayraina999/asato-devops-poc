@@ -35,6 +35,13 @@ pipeline{
             }
         }
 
+        stage("Compile"){
+            steps {
+                echo "*************** compile the code ******************"
+                sh 'mvn clean install'
+            }
+        }
+
         stage ("Build docker image") {
             when { tag "dev-*" }
             steps {
