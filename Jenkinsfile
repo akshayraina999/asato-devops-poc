@@ -85,12 +85,12 @@ pipeline{
 
         stage ("Deploying on kubernetes") {
             steps {
-                script {
+                sshagent (['kubernetes-server']){
                     git url: 'https://github.com/akshayraina999/asato-devops-poc.git', branch: 'main'
                     def latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim() 
                     sh "sed -i 's/image_name/${env.DOCKER_IMAGE_NAME}/' deployment.yaml"
                     sh "sed -i 's/tag/${latestTag}/' deployment.yaml"
-                    sh "kubectl apply -f deployment.yaml --validate=false"
+                    sh "ssh -o StrictHostKeyChecking=no azureuser@48.216.232.191 kubectl apply -f deployment.yaml --validate=false"
                 }
             }
         }
