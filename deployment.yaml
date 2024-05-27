@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: apps/v1m
 kind: Deployment
 metadata:
   name:  django-to-do
@@ -19,13 +19,13 @@ spec:
       containers:
       - image:  akshayraina/image_name:tag
         name:  django-container
-        resources:
-          limits:
-            cpu: "1"
-            memory: "512Mi"
-          requests:
-            cpu: "20m"
-            memory: "55M"
+        # resources:
+        #   limits:
+        #     cpu: "1"
+        #     memory: "512Mi"
+        #   requests:
+        #     cpu: "20m"
+        #     memory: "55M"
         livenessProbe:
           httpGet:
             path: /_status/healthz
