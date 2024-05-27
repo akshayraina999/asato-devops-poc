@@ -90,7 +90,7 @@ pipeline{
                     def latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim() 
                     sh "sed -i 's/image_name/${env.DOCKER_IMAGE_NAME}/' deployment.yaml"
                     sh "sed -i 's/tag/${latestTag}/' deployment.yaml"
-                    sh "kubectl apply -f deployment.yaml"
+                    sh "kubectl apply -f deployment.yaml --validate=false"
                 }
             }
         }
