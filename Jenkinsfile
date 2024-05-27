@@ -15,9 +15,21 @@ pipeline{
         DOCKER_IMAGE_NAME = "devops-poc"
 	} 
 
-    def latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
+    // def latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
 
     stages {
+        stage("Initialize") {
+            steps {
+                script {
+                    echo "*************** Initializing *******************"
+                    checkout([$class: 'GitSCM', userRemoteConfigs: [[url: env.GIT_REPO_URL]], branches: [[name: '*/main']]])
+                    sh "git fetch --tags"
+                    env.LATEST_TAG = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
+                    echo "Latest tag: ${env.LATEST_TAG}"
+                }
+            }
+        }
+
         stage ("Clone devops files") {
             steps {
                 echo "*************** cloning devops files *******************"
