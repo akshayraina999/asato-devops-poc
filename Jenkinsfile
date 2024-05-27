@@ -59,6 +59,7 @@ pipeline{
             steps {
                 script {
                     echo "*************** Building docker image *******************"
+                    git url: 'https://github.com/akshayraina999/website-k8.git', branch: 'master'
                     def latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()  
                     sh "docker build -t ${env.DOCKER_IMAGE_NAME}:${latestTag} ."
                 }
