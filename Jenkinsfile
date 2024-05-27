@@ -16,6 +16,12 @@ pipeline{
 	} 
 
     stages {
+        stage ("Clone devops files") {
+            steps {
+                echo "*************** cloning devops files *******************"
+                git url: 'https://github.com/akshayraina999/asato-devops-poc.git', branch: 'main'
+            }
+        }
         // stage ("Read config file") {
         //     steps {
         //         script {
@@ -63,7 +69,7 @@ pipeline{
             steps {
                 echo "**************** Pushing docker image to the registery ************************"
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push akshayraina/$JOB_NAME:v1.$BUILD_ID'
+                sh 'docker push akshayraina/$JOB_NAME:v1.${latestTag}'
                 sh 'docker rmi akshayraina/$JOB_NAME:v1.$BUILD_ID'
             }
         }
