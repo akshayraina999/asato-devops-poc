@@ -74,7 +74,7 @@ pipeline{
                     echo "2"
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                     echo "3"
-                    echo ${env.DOCKER_IMAGE_NAME}:${latestTag}
+                    echo "${env.DOCKER_IMAGE_NAME}:${latestTag}"
                     echo "4"
                     sh "docker tag ${env.DOCKER_IMAGE_NAME}:${latestTag} akshayraina/${env.DOCKER_IMAGE_NAME}:${latestTag}"
                     sh "docker push akshayraina/${env.DOCKER_IMAGE_NAME}:${latestTag}"
