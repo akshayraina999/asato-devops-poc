@@ -73,8 +73,8 @@ pipeline{
                     def latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()  
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                     sh 'echo ${env.DOCKER_IMAGE_NAME}:${latestTag}'
-                    sh 'docker tag ${env.DOCKER_IMAGE_NAME}:${latestTag} akshayraina/${env.DOCKER_IMAGE_NAME}:${latestTag}'
-                    sh 'docker push akshayraina/${env.DOCKER_IMAGE_NAME}:${latestTag}'
+                    sh "docker tag ${env.DOCKER_IMAGE_NAME}:${latestTag} akshayraina/${env.DOCKER_IMAGE_NAME}:${latestTag}"
+                    sh "docker push akshayraina/${env.DOCKER_IMAGE_NAME}:${latestTag}"
                     // sh 'docker rmi akshayraina/$JOB_NAME:v1.$BUILD_ID'
                 }
             }
