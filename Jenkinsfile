@@ -85,7 +85,7 @@ pipeline{
 
         stage ("Deploying on kubernetes") {
             steps {
-                git url: 'https://github.com/akshayraina999/website-k8.git', branch: 'master'
+                git url: 'https://github.com/akshayraina999/asato-devops-poc.git', branch: 'main'
                 sh "sed -i 's/image_name/${env.DOCKER_IMAGE_NAME}/' deployment.yaml"
                 sh "sed -i 's/tag/${latestTag}/' deployment.yaml"
                 sh "kubectl apply -f deployment.yaml"
