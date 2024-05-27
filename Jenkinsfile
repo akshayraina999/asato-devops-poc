@@ -11,20 +11,22 @@ pipeline{
 
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerpasswd')
+        GIT_REPO_URL = "https://github.com/akshayraina999/spring-boot-react-app.git"
+        DOCKER_IMAGE_NAME = "devops-poc"
 	} 
 
     stages {
-        stage ("Read config file") {
-            steps {
-                script {
-                    echo "*************** Reading config *******************"
-                    def config = readYaml file: 'config.yaml'
-                    env.GIT_REPO_URL = config.GIT_REPO_URL
-                    echo "${env.GIT_REPO_URL}"
-                    env.DOCKER_IMAGE_NAME = config.DOCKER_IMAGE_NAME
-                }   
-            }
-        }
+        // stage ("Read config file") {
+        //     steps {
+        //         script {
+        //             echo "*************** Reading config *******************"
+        //             def config = readYaml file: 'config.yaml'
+        //             env.GIT_REPO_URL = config.GIT_REPO_URL
+        //             echo "${env.GIT_REPO_URL}"
+        //             env.DOCKER_IMAGE_NAME = config.DOCKER_IMAGE_NAME
+        //         }   
+        //     }
+        // }
 
         stage ("Pull the code") {
             steps {
