@@ -19,7 +19,7 @@ pipeline{
         stage ("Clone devops files") {
             steps {
                 echo "*************** cloning devops files *******************"
-                git url: 'https://github.com/akshayraina999/asato-devops-poc.git', branch: 'main'
+                git url: 'https://github.com/akshayraina999/website-k8.git', branch: 'master'
             }
         }
         // stage ("Read config file") {
@@ -47,12 +47,12 @@ pipeline{
             }
         }
 
-        stage("Compile"){
-            steps {
-                echo "*************** compile the code ******************"
-                sh 'mvn clean install'
-            }
-        }
+        // stage("Compile"){
+        //     steps {
+        //         echo "*************** compile the code ******************"
+        //         sh 'mvn clean install'
+        //     }
+        // }
 
         stage ("Build docker image") {
             when { tag "dev-*" }
