@@ -19,6 +19,9 @@ spec:
       containers:
       - image:  akshayraina/image_name:tag
         name:  django-container
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
         # resources:
         #   limits:
         #     cpu: "1"
@@ -26,17 +29,17 @@ spec:
         #   requests:
         #     cpu: "20m"
         #     memory: "55M"
-        livenessProbe:
-          httpGet:
-            path: /_status/healthz
-            port: 5000
-          initialDelaySeconds: 90
-          timeoutSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /_status/healthz
-            port: 5000
-          initialDelaySeconds: 30
-          timeoutSeconds: 10
-      restartPolicy: Always
-      imagePullPolicy: Always
+      #   livenessProbe:
+      #     httpGet:
+      #       path: /_status/healthz
+      #       port: 5000
+      #     initialDelaySeconds: 90
+      #     timeoutSeconds: 10
+      #   readinessProbe:
+      #     httpGet:
+      #       path: /_status/healthz
+      #       port: 5000
+      #     initialDelaySeconds: 30
+      #     timeoutSeconds: 10
+      # restartPolicy: Always
+      
