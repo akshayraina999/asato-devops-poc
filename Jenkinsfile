@@ -11,7 +11,7 @@ pipeline{
 
     environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerpasswd')
-        GIT_REPO_URL = "https://github.com/akshayraina999/spring-boot-react-app.git"
+        GIT_REPO_URL = "https://github.com/akshayraina999/django-to-do.git"
         DOCKER_IMAGE_NAME = "devops-poc"
 	} 
 
@@ -38,7 +38,7 @@ pipeline{
             steps {
                 script {
                     echo "*************** Checking out the latest code *******************"
-                    checkout([$class: 'GitSCM', userRemoteConfigs: [[url: env.GIT_REPO_URL]], branches: [[name: '*/master']]])
+                    checkout([$class: 'GitSCM', userRemoteConfigs: [[url: env.GIT_REPO_URL]], branches: [[name: '*/main']]])
                     sh "git fetch --tags"
                     def latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
                     echo "Latest tag: ${latestTag}"
@@ -59,7 +59,7 @@ pipeline{
             steps {
                 script {
                     echo "*************** Building docker image *******************"
-                    git url: 'https://github.com/akshayraina999/website-k8.git', branch: 'master'
+                    // git url: 'https://github.com/akshayraina999/website-k8.git', branch: 'master'
                     def latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()  
                     sh "docker build -t ${env.DOCKER_IMAGE_NAME}:${latestTag} ."
                 }
