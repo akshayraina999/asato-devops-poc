@@ -70,8 +70,9 @@ pipeline{
             steps {
                 echo "**************** Pushing docker image to the registery ************************"
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push akshayraina/$JOB_NAME:v1.${latestTag}'
-                sh 'docker rmi akshayraina/$JOB_NAME:v1.$BUILD_ID'
+                sh 'docker tag ${env.DOCKER_IMAGE_NAME}:${latestTag} akshayraina/dev:${latestTag}'
+                sh 'docker push akshayraina/dev:${latestTag}'
+                // sh 'docker rmi akshayraina/$JOB_NAME:v1.$BUILD_ID'
             }
         }
     }
