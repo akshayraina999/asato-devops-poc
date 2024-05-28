@@ -24,8 +24,8 @@ pipeline{
                     echo "*************** Initializing *******************"
                     checkout([$class: 'GitSCM', userRemoteConfigs: [[url: env.GIT_REPO_URL]], branches: [[name: '*/main']]])
                     sh "git fetch --tags"
-                    env.LATEST_TAG = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
-                    echo "Latest tag: ${env.LATEST_TAG}"
+                    env.latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
+                    echo "Latest tag: ${env.latestTag}"
                 }
             }
         }
