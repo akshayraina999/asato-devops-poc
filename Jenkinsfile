@@ -5,48 +5,54 @@ pipeline{
         githubPush()
     }
 
-    tools{
-        maven 'maven_3_5_0'
-    }
+    // tools{
+    //     maven 'maven_3_5_0'
+    // }
 
-    environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerpasswd')
-        GIT_REPO_URL = "https://github.com/akshayraina999/django-to-do.git"
-        DOCKER_IMAGE_NAME = "devops-poc"
-	} 
+    // environment {
+	// 	DOCKERHUB_CREDENTIALS=credentials('dockerpasswd')
+    //     GIT_REPO_URL = "https://github.com/akshayraina999/django-to-do.git"
+    //     DOCKER_IMAGE_NAME = "devops-poc"
+	// } 
 
     // def latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
 
     stages {
-        stage("Initialize") {
-            steps {
-                script {
-                    echo "*************** Initializing *******************"
-                    checkout([$class: 'GitSCM', userRemoteConfigs: [[url: env.GIT_REPO_URL]], branches: [[name: '*/main']]])
-                    sh "git fetch --tags"
-                    env.latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
-                    echo "Latest tag: ${env.latestTag}"
-                }
-            }
-        }
-
         stage ("Clone devops files") {
             steps {
                 echo "*************** cloning devops files *******************"
-                git url: 'https://github.com/akshayraina999/website-k8.git', branch: 'master'
+                git url: 'https://github.com/akshayraina999/asato-devops-poc.git', branch: 'main'
             }
         }
-        // stage ("Read config file") {
+
+        // stage("Initialize") {
         //     steps {
         //         script {
-        //             echo "*************** Reading config *******************"
-        //             def config = readYaml file: 'config.yaml'
-        //             env.GIT_REPO_URL = config.GIT_REPO_URL
-        //             echo "${env.GIT_REPO_URL}"
-        //             env.DOCKER_IMAGE_NAME = config.DOCKER_IMAGE_NAME
-        //         }   
+        //             echo "*************** Initializing *******************"
+        //             checkout([$class: 'GitSCM', userRemoteConfigs: [[url: env.GIT_REPO_URL]], branches: [[name: '*/main']]])
+        //             sh "git fetch --tags"
+        //             env.latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
+        //             echo "Latest tag: ${env.latestTag}"
+        //         }
         //     }
         // }
+
+        stage ("Set environment variables") {
+            steps {
+                script {
+                    echo "*************** Reading config *******************"
+                    def config = readYaml file: 'config.yaml'
+                    env.GIT_REPO_URL = config.GIT_REPO_URL
+                    echo "${env.GIT_REPO_URL}"
+                    env.DOCKER_IMAGE_NAME = config.DOCKER_IMAGE_NAME
+
+                    checkout([$class: 'GitSCM', userRemoteConfigs: [[url: config.GIT_REPO_URL]], branches: [[name: '*/main']]])
+                    sh "git fetch --tags"
+                    env.latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
+                    echo "Latest tag: ${env.latestTag}"
+                }   
+            }
+        }
 
         stage ("Pull the code") {
             steps {
