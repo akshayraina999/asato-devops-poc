@@ -24,7 +24,7 @@ spec:
         name:  django-container
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 8000
 ---
 kind: Service
 apiVersion: v1
@@ -37,4 +37,4 @@ spec:
   ports:
   - name: http
     port:  80
-    targetPort:  8080
+    targetPort:  8000
