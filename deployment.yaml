@@ -25,3 +25,17 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  django-to-do
+spec:
+  selector:
+    app:  django-to-do
+  type:  LoadBalancer
+  ports:
+  - name: django-to-do
+    port:  8080
+    targetPort:  8080
+    nodePort: 31205
