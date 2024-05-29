@@ -9,11 +9,11 @@ pipeline{
     //     maven 'maven_3_5_0'
     // }
 
-    // environment {
-	// 	DOCKERHUB_CREDENTIALS=credentials('dockerpasswd')
-    //     GIT_REPO_URL = "https://github.com/akshayraina999/django-to-do.git"
-    //     DOCKER_IMAGE_NAME = "devops-poc"
-	// } 
+    environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerpasswd')
+        // GIT_REPO_URL = "https://github.com/akshayraina999/django-to-do.git"
+        // DOCKER_IMAGE_NAME = "devops-poc"
+	} 
 
     // def latestTag = sh(returnStdout: true, script: 'git describe --tags `git rev-list --tags --max-count=1`').trim()
 
