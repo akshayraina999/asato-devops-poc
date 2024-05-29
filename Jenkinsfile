@@ -109,7 +109,7 @@ pipeline{
                 withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'AKS-DEV-PLATFORM', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
                     sh "sed -i 's/image_name/${env.DOCKER_IMAGE_NAME}/' deployment.yaml"
                     sh "sed -i 's/tag/${latestTag}/' deployment.yaml"
-                    sh "kubectl delete -f deployment.yaml"
+                    sh "kubectl apply -f deployment.yaml"
                 }
                 // sshagent (['kubernetes-server']){
                 //     git url: 'https://github.com/akshayraina999/asato-devops-poc.git', branch: 'main'
