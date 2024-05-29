@@ -1,2 +1,2 @@
-GIT_REPO_URL: "https://github.com/akshayraina999/spring-boot-react-app.git"
-DOCKER_IMAGE_NAME: "tag-image"
+GIT_REPO_URL: "https://github.com/akshayraina999/django-to-do.git"
+DOCKER_IMAGE_NAME: "asato-poc"
