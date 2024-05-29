@@ -35,7 +35,6 @@ spec:
     app:  django-to-do
   type:  LoadBalancer
   ports:
-  - name: django-to-do
-    port:  8080
+  - name: http
+    port:  80
     targetPort:  8080
-    nodePort: 31205
