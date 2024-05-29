@@ -5,6 +5,9 @@ metadata:
   labels:
     name:  django-to-do
 spec:
+  selector:
+    matchLabels:
+      app: django-to-do
   replicas: 2
   strategy:
     rollingUpdate:
