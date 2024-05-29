@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name:  django-to-do
   labels:
-    name:  django-to-do
+    app:  django-to-do
 spec:
   selector:
     matchLabels:
@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       labels:
-        name:  django-to-do
+        app:  django-to-do
     spec:
       containers:
       - image:  akshayraina/image_name:tag
@@ -25,24 +25,3 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        # resources:
-        #   limits:
-        #     cpu: "1"
-        #     memory: "512Mi"
-        #   requests:
-        #     cpu: "20m"
-        #     memory: "55M"
-      #   livenessProbe:
-      #     httpGet:
-      #       path: /_status/healthz
-      #       port: 5000
-      #     initialDelaySeconds: 90
-      #     timeoutSeconds: 10
-      #   readinessProbe:
-      #     httpGet:
-      #       path: /_status/healthz
-      #       port: 5000
-      #     initialDelaySeconds: 30
-      #     timeoutSeconds: 10
-      # restartPolicy: Always
-      
